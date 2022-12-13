@@ -5,16 +5,21 @@ import styled from "@emotion/styled";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <AppView>
       <SpaceWrapper>
         <Space />
       </SpaceWrapper>
       <ComponenetWrapper>
         <Component {...pageProps} />
       </ComponenetWrapper>
-    </>
+    </AppView>
   );
 }
+
+const AppView = styled.div`
+  width: 100%;
+  height: 100%;
+`;
 
 const SpaceWrapper = styled.div`
   position: absolute;
