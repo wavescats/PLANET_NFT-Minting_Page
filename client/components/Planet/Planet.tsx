@@ -14,6 +14,18 @@ export type PlanetName =
   | "neptune"
   | null;
 
+export const PlanetList = [
+  "sun",
+  "mars",
+  "mercury",
+  "venus",
+  "earth",
+  "saturn",
+  "jupiter",
+  "uranus",
+  "neptune",
+] as PlanetName[];
+
 interface PlanetProps extends Partial<PrimitiveProps> {
   name: PlanetName;
 }
