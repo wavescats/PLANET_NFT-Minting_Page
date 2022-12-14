@@ -11,10 +11,22 @@ const Stars = dynamic(
   }
 );
 
+const Planet = dynamic(() => import("../Planet").then(mod => mod.Planet), {
+  ssr: false,
+});
+
 export const Space = (props: CanvasHTMLAttributes<any>) => {
   return (
     <Canvas onCreated={state => state.gl.setClearColor("#111")} {...props}>
       <Stars />
+      <Planet name="earth" position={[0, 1.5, 0]} />
+      <ambientLight intensity={0.3} />
+      <spotLight
+        position={[100, 100, 60]}
+        distence={200}
+        intensity={10}
+        angle={1}
+      />
     </Canvas>
   );
 };
