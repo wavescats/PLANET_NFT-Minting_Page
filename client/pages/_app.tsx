@@ -2,20 +2,22 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { Space } from "../components";
 import styled from "@emotion/styled";
-import { SpaceContextProvider } from "../contexts";
+import { SpaceContextProvider, Web3ContextProvider } from "../contexts";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <SpaceContextProvider>
-      <AppView>
-        <SpaceWrapper>
-          <Space />
-        </SpaceWrapper>
-        <ComponenetWrapper>
-          <Component {...pageProps} />
-        </ComponenetWrapper>
-      </AppView>
-    </SpaceContextProvider>
+    <Web3ContextProvider>
+      <SpaceContextProvider>
+        <AppView>
+          <SpaceWrapper>
+            <Space />
+          </SpaceWrapper>
+          <ComponenetWrapper>
+            <Component {...pageProps} />
+          </ComponenetWrapper>
+        </AppView>
+      </SpaceContextProvider>
+    </Web3ContextProvider>
   );
 }
 
