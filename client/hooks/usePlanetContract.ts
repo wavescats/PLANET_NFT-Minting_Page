@@ -424,11 +424,12 @@ const contractAbi = [
   },
 ];
 
-const contractAddress = "0xdc64a140aa3e981100a9beca4e685f962f0cf6c9";
+const CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
 export const usePlanetContract = (web3: Web3 | null) => {
   if (!web3) {
     return {
+      contractAddress: CONTRACT_ADDRESS,
       mintPlanet: (option: SendOptions) => {
         throw new Error("wallet not installed");
       },
@@ -444,10 +445,10 @@ export const usePlanetContract = (web3: Web3 | null) => {
     };
   }
 
-  const contracts = new web3.eth.Contract(contractAbi as any, contractAddress);
+  const contracts = new web3.eth.Contract(contractAbi as any, CONTRACT_ADDRESS);
 
   return {
-    PlanetContractAddress: contractAddress,
+    contractAddress: CONTRACT_ADDRESS,
     mintPlanet: (option: SendOptions) =>
       contracts.methods.mintPlanet().send(option),
     tokenURI: (tokenId: string) => contracts.methods.tokenURI(tokenId).call(),
