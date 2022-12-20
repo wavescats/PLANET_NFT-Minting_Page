@@ -456,3 +456,11 @@ export const usePlanetContract = (web3: Web3 | null) => {
     totalSupply: () => contracts.methods.totalSupply().call(), // 총 발행량 리턴
   };
 };
+
+// 체인 변경에 따른 연결코드
+// window.ethereum.request({
+//   method: "wallet_switchEthereumChain",
+//   params: [{
+//     chainId: "0x5"
+//   }]
+// }).then()

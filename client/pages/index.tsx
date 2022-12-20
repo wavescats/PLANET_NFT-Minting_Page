@@ -14,9 +14,11 @@ export default function Home() {
             Minting Your Own Planet
           </MainButton>
         </Link>
-        <MainButton variant="outlined" size="large">
-          View All Planet
-        </MainButton>
+        <Link href="/list">
+          <MainButton variant="outlined" size="large">
+            View All Planet
+          </MainButton>
+        </Link>
       </MenuView>
     </MainView>
   );
