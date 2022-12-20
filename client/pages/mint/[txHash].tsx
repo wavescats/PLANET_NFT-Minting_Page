@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
+import { Button, CircularProgress } from "@mui/material";
 import { useRouter } from "next/router";
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { MenuView } from "../../components";
+import { MenuView, Metadata, Title } from "../../components";
 import { PlanetName } from "../../components/Planet";
 import { SpaceContext, Web3Context } from "../../contexts";
 import { usePlanetContract } from "../../hooks";
@@ -16,7 +17,7 @@ const MintTx = () => {
   const { web3 } = useContext(Web3Context);
   const { contractAddress, tokenURI } = usePlanetContract(web3);
   const { showPlanet } = useContext(SpaceContext);
-  const [planetMetadata, setPlanetMetadata] = useState();
+  const [planetMetadata, setPlanetMetadata] = useState<any>();
   const [planetOwner, setPlanetOwner] = useState("");
   const [planetTokenId, setPlanetTokenId] = useState<number | null>(null);
 
@@ -49,6 +50,7 @@ const MintTx = () => {
           const metadata = await metadataQuery.json();
 
           setPlanetMetadata(metadata);
+          console.log(metadata);
 
           const owner = mintingEvent.topics[2]; // 2번째 address(to) 받는사람
           setPlanetOwner(owner.slice(-40)); // 끝에서 40글자만 가져오기(지갑주소)
@@ -81,7 +83,38 @@ const MintTx = () => {
 
   return (
     <TxView>
-      <DownMenuView>{txHash}</DownMenuView>
+      <DownMenuView>
+        {status === "MINING" && (
+          <>
+            <Progress />
+            <Description>Wait until transaction is mined...</Description>
+          </>
+        )}
+        {status === "WRONG_TX" && (
+          <>
+            <Title>Wrong Transaction</Title>
+            <Description>It's not a mining Transaction.</Description>
+          </>
+        )}
+        {status === "MINED" && (
+          <>
+            <Title>Planet #{planetTokenId}</Title>
+            <Metadata
+              owner={planetOwner}
+              properties={planetMetadata.attributes}
+            />
+          </>
+        )}
+        {status !== "PENDING" && status !== "MINING" && (
+          <GoPrevButton
+            variant="contained"
+            size="large"
+            onClick={() => router.back()}
+          >
+            Go Previous
+          </GoPrevButton>
+        )}
+      </DownMenuView>
     </TxView>
   );
 };
@@ -97,6 +130,23 @@ const TxView = styled.div`
 const DownMenuView = styled(MenuView)`
   margin-top: 320px;
   align-items: center;
+`;
+
+const Progress = styled(CircularProgress)`
+  margin-top: 24px;
+  margin-bottom: 24px;
+`;
+
+const Description = styled.div`
+  width: 100%;
+  margin-top: 8px;
+  color: #ccc;
+  text-align: center;
+`;
+
+const GoPrevButton = styled(Button)`
+  margin-top: 24px;
+  width: 100%;
 `;
 
 export default MintTx;

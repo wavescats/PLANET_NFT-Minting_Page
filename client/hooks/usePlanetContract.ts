@@ -424,7 +424,7 @@ const contractAbi = [
   },
 ];
 
-const CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+const CONTRACT_ADDRESS = "0x1DB45f4fA7A763Bce5802644cE28DC4d27336F28";
 
 export const usePlanetContract = (web3: Web3 | null) => {
   if (!web3) {
