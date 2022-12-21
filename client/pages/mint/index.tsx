@@ -57,7 +57,7 @@ export default function Mint() {
   }, []);
   return (
     <MainView>
-      <MenuView>
+      <DownMenuView>
         <Title>Mint Your Own PLANET!</Title>
 
         <Description>
@@ -79,18 +79,21 @@ export default function Mint() {
             Go Previous
           </MainButton>
         </ButtonView>
-      </MenuView>
+      </DownMenuView>
     </MainView>
   );
 }
 
 const MainView = styled.div`
-  margin-top: 120px;
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+const DownMenuView = styled(MenuView)`
+  margin-top: 320px;
 `;
 
 const Description = styled.div`
